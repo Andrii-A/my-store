@@ -8,8 +8,8 @@ import {TaskModel} from '../models/models';
   styleUrls: ['./tasks-list.component.scss']
 })
 export class TasksListComponent implements OnInit {
-
   tasks: Array<TaskModel>;
+  newName: string;
 
   constructor(private tasksListService: TasksListService) {
   }
@@ -21,6 +21,7 @@ export class TasksListComponent implements OnInit {
   getTasks() {
     this.tasksListService.getTasks().subscribe((res: Array<TaskModel>) => {
       this.tasks = res;
+      this.newName = '';
     });
   }
 
@@ -32,6 +33,12 @@ export class TasksListComponent implements OnInit {
 
   toggle(task: TaskModel) {
     this.tasksListService.toggleTask(task).subscribe((res: Array<TaskModel>) => {
+      this.getTasks();
+    });
+  }
+
+  add(name) {
+    this.tasksListService.addTask(name).subscribe((res: Array<TaskModel>) => {
       this.getTasks();
     });
   }
