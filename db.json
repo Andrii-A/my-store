@@ -1,0 +1,24 @@
+{
+  "tasks": [
+    {
+      "name": "First Task",
+      "id": 1,
+      "completed": true
+    },
+    {
+      "name": "Go sleep",
+      "id": 2,
+      "completed": true
+    },
+    {
+      "name": "Get food",
+      "id": 3,
+      "completed": true
+    },
+    {
+      "name": "Drive fast",
+      "id": 4,
+      "completed": true
+    }
+  ]
+}

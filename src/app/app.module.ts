@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { TasksListComponent } from './tasks-list/tasks-list.component';
 import {TasksListService} from './tasks-list/tasks-list.service';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -11,9 +12,10 @@ import {TasksListService} from './tasks-list/tasks-list.service';
     TasksListComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule,
   ],
-  providers: [TasksListService],
+  providers: [TasksListService, HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

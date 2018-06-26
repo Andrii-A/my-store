@@ -1,7 +1,9 @@
 <ul>
 
   <li *ngFor="let task of tasks">
-    {{task}}
+    <button (click)="toggle(task)">toggle: {{task.completed ? 'done' : 'todo'}}</button> &nbsp;&nbsp;&nbsp;
+    {{task.name}} &nbsp;&nbsp;&nbsp;
+    <button (click)="delete(task)">X</button>
   </li>
 
 
