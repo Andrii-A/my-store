@@ -50,7 +50,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "my-store:build"
+            "browserTarget": "my-store:build",
+            "port": 4201
           },
           "configurations": {
             "production": {
@@ -123,5 +124,10 @@
       }
     }
   },
-  "defaultProject": "my-store"
+  "defaultProject": "my-store",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
