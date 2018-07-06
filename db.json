@@ -3,22 +3,22 @@
     {
       "name": "First Task",
       "id": 1,
-      "completed": true
+      "completed": false
     },
     {
       "name": "Go sleep",
       "id": 2,
-      "completed": true
+      "completed": false
     },
     {
       "name": "Get food",
       "id": 3,
-      "completed": true
+      "completed": false
     },
     {
       "name": "Drive fast",
       "id": 4,
-      "completed": true
+      "completed": false
     },
     {
       "name": "Do something!",

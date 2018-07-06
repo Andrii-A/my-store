@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TasksListService} from './tasks-list.service';
-import {TaskModel} from '../models/models';
+import {TaskType} from '../models/models';
 
 @Component({
   selector: 'tasks-list',
@@ -8,7 +8,7 @@ import {TaskModel} from '../models/models';
   styleUrls: ['./tasks-list.component.scss']
 })
 export class TasksListComponent implements OnInit {
-  tasks: Array<TaskModel>;
+  tasks: Array<TaskType>;
   newName: string;
 
   constructor(private tasksListService: TasksListService) {
@@ -19,26 +19,26 @@ export class TasksListComponent implements OnInit {
   }
 
   getTasks() {
-    this.tasksListService.getTasks().subscribe((res: Array<TaskModel>) => {
+    this.tasksListService.getTasks().subscribe((res: Array<TaskType>) => {
       this.tasks = res;
       this.newName = '';
     });
   }
 
-  delete(task: TaskModel) {
-    this.tasksListService.deleteTask(task).subscribe((res: Array<TaskModel>) => {
+  delete(task: TaskType) {
+    this.tasksListService.deleteTask(task).subscribe((res: Array<TaskType>) => {
       this.getTasks();
     });
   }
 
-  toggle(task: TaskModel) {
-    this.tasksListService.toggleTask(task).subscribe((res: Array<TaskModel>) => {
+  toggle(task: TaskType) {
+    this.tasksListService.toggleTask(task).subscribe((res: Array<TaskType>) => {
       this.getTasks();
     });
   }
 
   add(name) {
-    this.tasksListService.addTask(name).subscribe((res: Array<TaskModel>) => {
+    this.tasksListService.addTask(name).subscribe((res: Array<TaskType>) => {
       this.getTasks();
     });
   }
