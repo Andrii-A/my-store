@@ -15,44 +15,25 @@ export class TasksListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTasks();
+    this.tasksListService.getTasks();
+
+    this.tasksListService.stream$().subscribe(res => {
+      this.tasks = res;
+      this.newName = '';
+    });
   }
 
-  getTasks() {
-    this.tasksListService.getTasks().subscribe((res: Array<TaskType>) => {
-        this.tasks = res;
-        this.newName = '';
-      },
-      err => {
-        console.error('can`t get `em! >>>', err);
-      });
-  }
 
   delete(task: TaskType) {
-    this.tasksListService.deleteTask(task).subscribe((res: Array<TaskType>) => {
-        this.getTasks();
-      },
-      err => {
-        console.error('can`t delete ! >>>', err);
-      });
+    this.tasksListService.deleteTask(task);
   }
 
   toggle(task: TaskType) {
-    this.tasksListService.toggleTask(task).subscribe((res: Array<TaskType>) => {
-        this.getTasks();
-      },
-      err => {
-        console.error('can`t toggle! >>>', err);
-      });
+    this.tasksListService.toggleTask(task);
   }
 
   add(name) {
-    this.tasksListService.addTask(name).subscribe((res: Array<TaskType>) => {
-        this.getTasks();
-      },
-      err => {
-        console.error('can`t add it! >>>', err);
-      });
+    this.tasksListService.addTask(name);
   }
 
 
