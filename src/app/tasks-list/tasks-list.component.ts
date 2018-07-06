@@ -20,27 +20,39 @@ export class TasksListComponent implements OnInit {
 
   getTasks() {
     this.tasksListService.getTasks().subscribe((res: Array<TaskType>) => {
-      this.tasks = res;
-      this.newName = '';
-    });
+        this.tasks = res;
+        this.newName = '';
+      },
+      err => {
+        console.error('can`t get `em! >>>', err);
+      });
   }
 
   delete(task: TaskType) {
     this.tasksListService.deleteTask(task).subscribe((res: Array<TaskType>) => {
-      this.getTasks();
-    });
+        this.getTasks();
+      },
+      err => {
+        console.error('can`t delete ! >>>', err);
+      });
   }
 
   toggle(task: TaskType) {
     this.tasksListService.toggleTask(task).subscribe((res: Array<TaskType>) => {
-      this.getTasks();
-    });
+        this.getTasks();
+      },
+      err => {
+        console.error('can`t toggle! >>>', err);
+      });
   }
 
   add(name) {
     this.tasksListService.addTask(name).subscribe((res: Array<TaskType>) => {
-      this.getTasks();
-    });
+        this.getTasks();
+      },
+      err => {
+        console.error('can`t add it! >>>', err);
+      });
   }
 
 

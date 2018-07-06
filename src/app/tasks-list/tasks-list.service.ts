@@ -19,18 +19,14 @@ export class TasksListService {
 
   getTasks(): Observable<Array<TaskType>> {
     return this.http
-      .get<Array<TaskType>>(`${this.API_URL}/tasks`)
-      // .pipe(catchError((error: any) => Observable.throw(error)))
-      ;
+      .get<Array<TaskType>>(`${this.API_URL}/tasks`);
   }
 
   deleteTask(task: TaskType): Observable<Array<TaskType>> {
     const id: number = task.id;
 
     return this.http
-      .delete<Array<TaskType>>(`${this.API_URL}/tasks/${id}`)
-      // .pipe(catchError((error: any) => Observable.throw(error)))
-      ;
+      .delete<Array<TaskType>>(`${this.API_URL}/tasks/${id}`);
   }
 
 
@@ -41,9 +37,7 @@ export class TasksListService {
     updatedTask.completed = !task.completed;
 
     return this.http
-      .put<Array<TaskType>>(`${this.API_URL}/tasks/${id}`, updatedTask)
-      // .pipe(catchError((error: any) => Observable.throw(error)))
-      ;
+      .put<Array<TaskType>>(`${this.API_URL}/tasks/${id}`, updatedTask);
   }
 
   addTask(name: string): Observable<Array<TaskType>> {
@@ -54,9 +48,7 @@ export class TasksListService {
     };
 
     return this.http
-      .post<Array<TaskType>>(`${this.API_URL}/tasks/`, newTask)
-      // .pipe(catchError((error: any) => Observable.throw(error)))
-      ;
+      .post<Array<TaskType>>(`${this.API_URL}/tasks/`, newTask);
   }
 
 
