@@ -10,6 +10,8 @@ import {TaskType} from '../models/models';
 export class TasksListComponent implements OnInit {
   tasks: Array<TaskType>;
   newName: string;
+  loading: boolean;
+  networkError: boolean;
 
   constructor(private tasksListService: TasksListService) {
   }
@@ -17,9 +19,27 @@ export class TasksListComponent implements OnInit {
   ngOnInit() {
     this.tasksListService.getTasks();
 
-    this.tasksListService.stream$().subscribe(res => {
+    this.tasksListService.dataStream$().subscribe(res => {
       this.tasks = res;
       this.newName = '';
+    });
+
+    this.tasksListService.statusStream$().subscribe(res => {
+      switch(res) {
+        case 'busy':
+          this.loading = true;
+          break;
+        case 'ready':
+          this.loading = false;
+          break;
+        case 'error':
+          this.loading = true;
+          this.networkError = true;
+          break;
+        default:
+          this.loading = false;
+      }
+
     });
   }
 
