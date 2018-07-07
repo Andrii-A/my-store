@@ -2,12 +2,13 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {environment} from './../../environments/environment';
 
+import * as _ from 'lodash';
 
-import {from, combineLatest, BehaviorSubject} from 'rxjs';
+import {filter} from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
 
 import {TaskType} from '../models/models';
 import {UUID} from 'angular2-uuid';
-
 
 
 @Injectable()
@@ -20,13 +21,15 @@ export class TasksListService {
   }
 
   stream$() {
-    return this.subject.asObservable();
+    // return this.subject.asObservable();
+    return this.subject.asObservable().pipe(filter(x => !_.isNull(x)));
+
   }
 
 
   getTasks() {
     this.http
-      .get<Array<TaskType>>(`${this.API_URL}/tasks`).subscribe(
+      .get(`${this.API_URL}/tasks`).subscribe(
       res => {
         this.subject.next(res);
       },
@@ -37,11 +40,15 @@ export class TasksListService {
 
   deleteTask(task: TaskType) {
     const id: number = task.id;
+    const url = `${this.API_URL}/tasks/${id}`;
+
+    const currentTasks = this.subject.getValue();
+    const updatedTasks = _.remove(currentTasks, (t: TaskType) => t.id !== id);
 
     return this.http
-      .delete<Array<TaskType>>(`${this.API_URL}/tasks/${id}`).subscribe(
-        res => {
-          this.getTasks();
+      .delete(url).subscribe(
+        () => {
+          this.subject.next(updatedTasks);
         },
         err => {
           console.error('can`t delete! >>>', err);
@@ -50,14 +57,23 @@ export class TasksListService {
 
 
   toggleTask(task: TaskType) {
-    const id = task.id;
-    const updatedTask = task;
+    const updatedTask = Object.assign({}, task);
     updatedTask.completed = !task.completed;
 
+    const url = `${this.API_URL}/tasks/${task.id}`;
+    const currentTasks = this.subject.getValue();
+
+    const updatedTasks = _.map(currentTasks, (t: TaskType) => {
+      if (t.id === task.id) {
+        t.completed = !t.completed;
+      }
+      return t;
+    });
+
     return this.http
-      .put<Array<TaskType>>(`${this.API_URL}/tasks/${id}`, updatedTask).subscribe(
+      .put(url, updatedTask).subscribe(
         res => {
-          this.getTasks();
+          this.subject.next(updatedTasks);
         },
         err => {
           console.error('can`t toggle! >>>', err);
@@ -71,10 +87,13 @@ export class TasksListService {
       completed: false
     };
 
+    const currentTasks = this.subject.getValue();
+    const updatedTasks = _.concat(currentTasks, newTask);
+
     this.http
-      .post<Array<TaskType>>(`${this.API_URL}/tasks/`, newTask).subscribe(
+      .post(`${this.API_URL}/tasks/`, newTask).subscribe(
       res => {
-        this.getTasks();
+        this.subject.next(updatedTasks);
       },
       err => {
         console.error('can`t add it! >>>', err);

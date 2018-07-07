@@ -3,16 +3,11 @@
     {
       "name": "First Task",
       "id": 1,
-      "completed": false
+      "completed": true
     },
     {
       "name": "Go sleep",
       "id": 2,
-      "completed": false
-    },
-    {
-      "name": "Get food",
-      "id": 3,
       "completed": false
     },
     {
@@ -21,13 +16,8 @@
       "completed": true
     },
     {
-      "name": "Do something!",
-      "id": "4c4848e1-a22e-cc6a-36dd-fb5b59528047",
-      "completed": true
-    },
-    {
-      "name": "Do something!",
-      "id": "65fbc2ed-d342-31a7-6510-15b496ff7ac9",
+      "name": "1",
+      "id": "f540fb1f-d4db-2af9-1a83-99f69ad6f5b5",
       "completed": false
     }
   ]

@@ -32,7 +32,7 @@ export class TasksListComponent implements OnInit {
     this.tasksListService.toggleTask(task);
   }
 
-  add(name) {
+  add(name: string) {
     this.tasksListService.addTask(name);
   }
 
