@@ -43,7 +43,7 @@ export class TasksListService {
     const url = `${this.API_URL}/tasks/${id}`;
 
     const currentTasks = this.subject.getValue();
-    const updatedTasks = _.remove(currentTasks, (t: TaskType) => t.id !== id);
+    const updatedTasks = _.filter(currentTasks, (t: TaskType) => t.id !== id);
 
     return this.http
       .delete(url).subscribe(
