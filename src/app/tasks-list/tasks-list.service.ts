@@ -47,12 +47,12 @@ export class TasksListService {
 
     this.http
       .delete(url).subscribe(
-        () => {
-          this.subject.next(updatedTasks);
-        },
-        err => {
-          console.error('can`t delete! >>>', err);
-        });
+      () => {
+        this.subject.next(updatedTasks);
+      },
+      err => {
+        console.error('can`t delete! >>>', err);
+      });
   }
 
 
@@ -65,19 +65,19 @@ export class TasksListService {
 
     const updatedTasks = _.map(currentTasks, (t: TaskType) => {
       if (t.id === task.id) {
-        t.completed = !t.completed;
+        t = updatedTask;
       }
       return t;
     });
 
     this.http
       .put(url, updatedTask).subscribe(
-        res => {
-          this.subject.next(updatedTasks);
-        },
-        err => {
-          console.error('can`t toggle! >>>', err);
-        });
+      res => {
+        this.subject.next(updatedTasks);
+      },
+      err => {
+        console.error('can`t toggle! >>>', err);
+      });
   }
 
   addTask(name: string) {
