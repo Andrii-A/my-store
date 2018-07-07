@@ -8,31 +8,11 @@
     {
       "name": "Go sleep",
       "id": 2,
-      "completed": true
+      "completed": false
     },
     {
       "name": "Drive fast",
       "id": 4,
-      "completed": false
-    },
-    {
-      "name": "1",
-      "id": "d5d263e4-2743-7854-3098-7b7e13a5e792",
-      "completed": false
-    },
-    {
-      "name": "2",
-      "id": "a078f664-a5fd-41f9-4bee-0ff3101c2076",
-      "completed": false
-    },
-    {
-      "name": "3",
-      "id": "23d86ee8-84da-52f6-b27f-592da75203ff",
-      "completed": false
-    },
-    {
-      "name": "4",
-      "id": "1c71ff6b-33c8-7523-2a3f-34914fc930ae",
       "completed": false
     }
   ]

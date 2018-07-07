@@ -45,7 +45,7 @@ export class TasksListService {
     const currentTasks = this.subject.getValue();
     const updatedTasks = _.filter(currentTasks, (t: TaskType) => t.id !== id);
 
-    return this.http
+    this.http
       .delete(url).subscribe(
         () => {
           this.subject.next(updatedTasks);
@@ -70,7 +70,7 @@ export class TasksListService {
       return t;
     });
 
-    return this.http
+    this.http
       .put(url, updatedTask).subscribe(
         res => {
           this.subject.next(updatedTasks);
