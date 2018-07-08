@@ -3,3 +3,8 @@ export type TaskType = {
   id: number,
   completed: boolean
 };
+
+
+export interface AppState {
+  tasks: Array<TaskType>;
+}

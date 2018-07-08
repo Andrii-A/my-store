@@ -5,11 +5,10 @@ import {environment} from './../../environments/environment';
 import * as _ from 'lodash';
 
 import {filter} from 'rxjs/operators';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 
 import {TaskType} from '../models/models';
 import {UUID} from 'angular2-uuid';
-
 
 @Injectable()
 export class TasksListService {
@@ -47,25 +46,36 @@ export class TasksListService {
       });
   }
 
-  deleteTask(task: TaskType) {
-    const id: number = task.id;
+  loadTasks(): Observable<any> {
+    const url = `${this.API_URL}/tasks`;
+    return this.http.get(url);
+  }
+
+
+  // deleteTask(task: TaskType) {
+  //   const id: number = task.id;
+  //   const url = `${this.API_URL}/tasks/${id}`;
+  //
+  //   const currentTasks = this.dataSubject.getValue();
+  //   const updatedTasks = _.filter(currentTasks, (t: TaskType) => t.id !== id);
+  //
+  //   this.statusSubject.next('busy');
+  //
+  //   this.http
+  //     .delete(url).subscribe(
+  //     () => {
+  //       this.dataSubject.next(updatedTasks);
+  //       this.statusSubject.next('ready');
+  //     },
+  //     err => {
+  //       console.error('can`t delete! >>>', err);
+  //       this.statusSubject.next('error');
+  //     });
+  // }
+
+  deleteTask(id: number): Observable<any> {
     const url = `${this.API_URL}/tasks/${id}`;
-
-    const currentTasks = this.dataSubject.getValue();
-    const updatedTasks = _.filter(currentTasks, (t: TaskType) => t.id !== id);
-
-    this.statusSubject.next('busy');
-
-    this.http
-      .delete(url).subscribe(
-      () => {
-        this.dataSubject.next(updatedTasks);
-        this.statusSubject.next('ready');
-      },
-      err => {
-        console.error('can`t delete! >>>', err);
-        this.statusSubject.next('error');
-      });
+    return this.http.delete(url);
   }
 
 
