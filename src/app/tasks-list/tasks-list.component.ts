@@ -71,6 +71,7 @@ export class TasksListComponent implements OnInit {
 
   toggle(task: TaskType) {
     // this.tasksListService.toggleTask(task);
+    this.store.dispatch(new tasksActions.ToggleTaskAction(task) );
   }
 
   add(name: string) {

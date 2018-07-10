@@ -8,6 +8,8 @@ import * as taskActions from './../actions/actions';
 import {switchMap, map} from 'rxjs/operators';
 
 
+
+
 @Injectable()
 export class TaskEffects {
 
@@ -36,6 +38,22 @@ export class TaskEffects {
         return this.tasksListService.deleteTask(action.payload)
           .pipe(
             map(() => new taskActions.DeleteTaskSuccessAction(action.payload))
+          );
+      })
+    );
+
+  @Effect() toggleTask$ = this.actions$
+    .ofType(taskActions.TOGGLE_TASK)
+    .pipe(
+      switchMap((action: taskActions.ToggleTaskAction) => {
+        const newPayload = action.payload;
+        newPayload.completed = !action.payload.completed;
+
+        return this.tasksListService.toggleTask(newPayload)
+          .pipe(
+            map(() => {
+              return new taskActions.ToggleTaskSuccessAction(newPayload);
+            })
           );
       })
     );

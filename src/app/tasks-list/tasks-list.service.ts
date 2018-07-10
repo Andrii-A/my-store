@@ -30,21 +30,21 @@ export class TasksListService {
   }
 
 
-  getTasks() {
-    this.statusSubject.next('busy');
-
-
-    this.http
-      .get(`${this.API_URL}/tasks`).subscribe(
-      res => {
-        this.dataSubject.next(res);
-        this.statusSubject.next('ready');
-      },
-      err => {
-        this.dataSubject.error(err);
-        this.statusSubject.next('error');
-      });
-  }
+  // getTasks() {
+  //   this.statusSubject.next('busy');
+  //
+  //
+  //   this.http
+  //     .get(`${this.API_URL}/tasks`).subscribe(
+  //     res => {
+  //       this.dataSubject.next(res);
+  //       this.statusSubject.next('ready');
+  //     },
+  //     err => {
+  //       this.dataSubject.error(err);
+  //       this.statusSubject.next('error');
+  //     });
+  // }
 
   loadTasks(): Observable<any> {
     const url = `${this.API_URL}/tasks`;
@@ -77,35 +77,40 @@ export class TasksListService {
     const url = `${this.API_URL}/tasks/${id}`;
     return this.http.delete(url);
   }
+  //
+  //
+  // toggleTask(task: TaskType) {
+  //   const updatedTask = Object.assign({}, task);
+  //   updatedTask.completed = !task.completed;
+  //
+  //   const url = `${this.API_URL}/tasks/${task.id}`;
+  //   const currentTasks = this.dataSubject.getValue();
+  //
+  //   const updatedTasks = _.map(currentTasks, (t: TaskType) => {
+  //     if (t.id === task.id) {
+  //       t = updatedTask;
+  //     }
+  //     return t;
+  //   });
+  //
+  //   this.statusSubject.next('busy');
+  //
+  //
+  //   this.http
+  //     .put(url, updatedTask).subscribe(
+  //     res => {
+  //       this.dataSubject.next(updatedTasks);
+  //       this.statusSubject.next('ready');
+  //     },
+  //     err => {
+  //       console.error('can`t toggle! >>>', err);
+  //       this.statusSubject.next('error');
+  //     });
+  // }
 
-
-  toggleTask(task: TaskType) {
-    const updatedTask = Object.assign({}, task);
-    updatedTask.completed = !task.completed;
-
+  toggleTask(task: TaskType): Observable<any> {
     const url = `${this.API_URL}/tasks/${task.id}`;
-    const currentTasks = this.dataSubject.getValue();
-
-    const updatedTasks = _.map(currentTasks, (t: TaskType) => {
-      if (t.id === task.id) {
-        t = updatedTask;
-      }
-      return t;
-    });
-
-    this.statusSubject.next('busy');
-
-
-    this.http
-      .put(url, updatedTask).subscribe(
-      res => {
-        this.dataSubject.next(updatedTasks);
-        this.statusSubject.next('ready');
-      },
-      err => {
-        console.error('can`t toggle! >>>', err);
-        this.statusSubject.next('error');
-      });
+    return this.http.put(url, task);
   }
 
   addTask(name: string) {
