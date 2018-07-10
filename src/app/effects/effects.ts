@@ -8,6 +8,9 @@ import * as taskActions from './../actions/actions';
 import {switchMap, map, catchError} from 'rxjs/operators';
 import {throwError} from 'rxjs';
 
+import {UUID} from 'angular2-uuid';
+
+
 
 @Injectable()
 export class TaskEffects {
@@ -63,6 +66,30 @@ export class TaskEffects {
             }),
             catchError((error: any) => {
               console.error('Can not toggle the task!');
+              return throwError(error);
+            })
+          );
+      })
+    );
+
+  @Effect() addTask$ = this.actions$
+    .ofType(taskActions.ADD_TASK)
+    .pipe(
+      switchMap((action: taskActions.AddTaskAction) => {
+
+        const newPayload = {
+          name: action.payload || 'Do something!',
+          id: UUID.UUID(),
+          completed: false
+        };
+
+        return this.tasksListService.addTask(newPayload)
+          .pipe(
+            map(() => {
+              return new taskActions.AddTaskSuccessAction(newPayload);
+            }),
+            catchError((error: any) => {
+              console.error('Can not add the task!');
               return throwError(error);
             })
           );

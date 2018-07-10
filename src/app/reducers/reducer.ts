@@ -23,6 +23,7 @@ export function taskReducer(state = [], action: taskActions.Actions) {
       const newState = state.filter(task => task.id !== action.payload);
       return newState;
     }
+
     // case taskActions.TOGGLE_TASK: {
     //   return state;
     // }
@@ -37,6 +38,17 @@ export function taskReducer(state = [], action: taskActions.Actions) {
       });
 
       return newState;
+    }
+
+
+    // case taskActions.ADD_TASK: {
+    //   return state;
+    // }
+
+    case taskActions.ADD_TASK_SUCCESS: {
+      // here we are update state with a updated Task we received from Effect
+      // const newState = _.concat(state, action.payload);
+      return [...state, action.payload];
     }
 
 

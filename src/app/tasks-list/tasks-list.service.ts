@@ -73,10 +73,11 @@ export class TasksListService {
   //     });
   // }
 
-  deleteTask(id: number): Observable<any> {
+  deleteTask(id: string): Observable<any> {
     const url = `${this.API_URL}/tasks/${id}`;
     return this.http.delete(url);
   }
+
   //
   //
   // toggleTask(task: TaskType) {
@@ -113,29 +114,33 @@ export class TasksListService {
     return this.http.put(url, task);
   }
 
-  addTask(name: string) {
-    const newTask = {
-      name: name || 'Do something!',
-      id: UUID.UUID(),
-      completed: false
-    };
+  // addTask(name: string) {
+  //   const newTask = {
+  //     name: name || 'Do something!',
+  //     id: UUID.UUID(),
+  //     completed: false
+  //   };
+  //
+  //   const currentTasks = this.dataSubject.getValue();
+  //   const updatedTasks = _.concat(currentTasks, newTask);
+  //
+  //   this.statusSubject.next('busy');
+  //
+  //
+  //   this.http
+  //     .post(`${this.API_URL}/tasks/`, newTask).subscribe(
+  //     res => {
+  //       this.dataSubject.next(updatedTasks);
+  //       this.statusSubject.next('ready');
+  //     },
+  //     err => {
+  //       console.error('can`t add it! >>>', err);
+  //       this.statusSubject.next('error');
+  //     });
+  // }
 
-    const currentTasks = this.dataSubject.getValue();
-    const updatedTasks = _.concat(currentTasks, newTask);
-
-    this.statusSubject.next('busy');
-
-
-    this.http
-      .post(`${this.API_URL}/tasks/`, newTask).subscribe(
-      res => {
-        this.dataSubject.next(updatedTasks);
-        this.statusSubject.next('ready');
-      },
-      err => {
-        console.error('can`t add it! >>>', err);
-        this.statusSubject.next('error');
-      });
+  addTask(newTask: TaskType): Observable<any> {
+    return this.http.post(`${this.API_URL}/tasks/`, newTask);
   }
 
 

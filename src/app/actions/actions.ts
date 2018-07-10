@@ -13,6 +13,9 @@ export const DELETE_TASK_SUCCESS = 'DELETE_TASK_SUCCESS';
 export const TOGGLE_TASK = 'TOGGLE_TASK';
 export const TOGGLE_TASK_SUCCESS = 'TOGGLE_TASK_SUCCESS';
 
+export const ADD_TASK = 'ADD_TASK';
+export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS';
+
 
 export class LoadTasksAction implements Action {
   readonly type = LOAD_TASKS;
@@ -31,13 +34,13 @@ export class LoadTasksSuccessAction implements Action {
 
 export class DeleteTaskAction implements Action {
   readonly type = DELETE_TASK;
-  constructor(public payload: number) {
+  constructor(public payload: string) {
   }
 }
 
 export class DeleteTaskSuccessAction implements Action {
   readonly type = DELETE_TASK_SUCCESS;
-  constructor(public payload: number) {
+  constructor(public payload: string) {
   }
 }
 
@@ -56,11 +59,25 @@ export class ToggleTaskSuccessAction implements Action {
   }
 }
 
+export class AddTaskAction implements Action {
+  readonly type = ADD_TASK;
+  constructor(public payload: string) {
+  }
+}
+
+export class AddTaskSuccessAction implements Action {
+  readonly type = ADD_TASK_SUCCESS;
+  constructor(public payload: TaskType) {
+  }
+}
+
 export type Actions
   = LoadTasksAction
   | LoadTasksSuccessAction
   | DeleteTaskAction
   | DeleteTaskSuccessAction
   | ToggleTaskAction
-  | ToggleTaskSuccessAction;
+  | ToggleTaskSuccessAction
+  | AddTaskAction
+  | AddTaskSuccessAction;
 

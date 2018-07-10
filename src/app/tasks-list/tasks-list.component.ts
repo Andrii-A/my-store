@@ -76,6 +76,8 @@ export class TasksListComponent implements OnInit {
 
   add(name: string) {
     // this.tasksListService.addTask(name);
+    this.store.dispatch(new tasksActions.AddTaskAction(name) );
+    this.newName = '';
   }
 
 
