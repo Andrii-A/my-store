@@ -5,9 +5,8 @@ import {Effect, Actions} from '@ngrx/effects';
 
 import * as taskActions from './../actions/actions';
 
-import {switchMap, map} from 'rxjs/operators';
-
-
+import {switchMap, map, catchError} from 'rxjs/operators';
+import {throwError} from 'rxjs';
 
 
 @Injectable()
@@ -37,7 +36,11 @@ export class TaskEffects {
       switchMap((action: taskActions.DeleteTaskAction) => {
         return this.tasksListService.deleteTask(action.payload)
           .pipe(
-            map(() => new taskActions.DeleteTaskSuccessAction(action.payload))
+            map(() => new taskActions.DeleteTaskSuccessAction(action.payload)),
+            catchError((error: any) => {
+              console.error('Can not delete the task!');
+              return throwError(error);
+            })
           );
       })
     );
@@ -53,9 +56,15 @@ export class TaskEffects {
           .pipe(
             map(() => {
               return new taskActions.ToggleTaskSuccessAction(newPayload);
+            }),
+            catchError((error: any) => {
+              console.error('Can not toggle the task!');
+              return throwError(error);
             })
           );
       })
     );
 
 }
+
+
