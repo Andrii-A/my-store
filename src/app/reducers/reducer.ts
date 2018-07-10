@@ -47,7 +47,6 @@ export function taskReducer(state = [], action: taskActions.Actions) {
 
     case taskActions.ADD_TASK_SUCCESS: {
       // here we are update state with a updated Task we received from Effect
-      // const newState = _.concat(state, action.payload);
       return [...state, action.payload];
     }
 

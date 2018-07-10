@@ -11,7 +11,6 @@ import {throwError} from 'rxjs';
 import {UUID} from 'angular2-uuid';
 
 
-
 @Injectable()
 export class TaskEffects {
 
@@ -56,7 +55,7 @@ export class TaskEffects {
     .ofType(taskActions.TOGGLE_TASK)
     .pipe(
       switchMap((action: taskActions.ToggleTaskAction) => {
-        const newPayload = action.payload;
+        const newPayload = Object.assign({}, action.payload);
         newPayload.completed = !action.payload.completed;
 
         return this.tasksListService.toggleTask(newPayload)
