@@ -1,10 +1,21 @@
-export type TaskType = {
-  name: string,
-  id: string,
-  completed: boolean
-};
+export interface TaskType {
+  name: string;
+  id: string;
+  completed: boolean;
+}
 
+
+export interface TasksState {
+  taskList: Array<TaskType>;
+  loading: boolean;
+  loaded: boolean;
+}
 
 export interface AppState {
-  tasks: Array<TaskType>;
+  tasks: {
+    taskList: Array<TaskType>;
+    loading: boolean;
+    loaded: boolean;
+  }
 }
+

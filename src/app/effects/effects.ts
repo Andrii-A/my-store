@@ -28,7 +28,7 @@ export class TaskEffects {
       switchMap(() => {
         return this.tasksListService.loadTasks()
           .pipe(
-            map(tasks => new taskActions.LoadTasksSuccessAction(tasks)),
+            map(taskList => new taskActions.LoadTasksSuccessAction(taskList)),
             catchError((error: any) => {
               console.error('Can not load tasks!');
               return throwError(error);
