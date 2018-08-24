@@ -2,7 +2,6 @@
 
 <div [class.wrapper-loading]="loading$ | async">
 
-
   <ul>
 
     <li *ngFor="let task of tasks$ | async">
@@ -11,12 +10,10 @@
       <button (click)="delete(task)">X</button>
     </li>
 
-
   </ul>
 
   <input type="text" [(ngModel)]="newName" (keydown.enter)="add(newName)" placeholder="Add a new task"> &nbsp;
   <button (click)="add(newName)">Add</button>
-
 
 </div>
 

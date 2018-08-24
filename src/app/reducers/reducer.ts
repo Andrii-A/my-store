@@ -29,39 +29,69 @@ export function taskReducer(state = initialState, action: taskActions.Actions) {
 
     }
 
-    // case taskActions.DELETE_TASK: {
-    //   return state;
-    // }
-
-    case taskActions.DELETE_TASK_SUCCESS: {
-      const newState = state.taskList.filter(task => task.id !== action.payload);
-      return newState;
+    case taskActions.DELETE_TASK: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
     }
 
-    // case taskActions.TOGGLE_TASK: {
-    //   return state;
-    // }
+    case taskActions.DELETE_TASK_SUCCESS: {
+      const taskList = state.taskList.filter(task => task.id !== action.payload);
+
+      return {
+        ...state,
+        taskList,
+        loading: false,
+        loaded: true
+      };
+    }
+
+    case taskActions.TOGGLE_TASK: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
+    }
 
     case taskActions.TOGGLE_TASK_SUCCESS: {
       // here we are update state with a updated Task we received from Effect
-      const newState = _.map(state.taskList, (t: TaskType) => {
+      const taskList = _.map(state.taskList, (t: TaskType) => {
         if (t.id === action.payload.id) {
           t = action.payload;
         }
         return t;
       });
 
-      return newState;
+      return {
+        ...state,
+        taskList,
+        loading: false,
+        loaded: true
+      };
     }
 
 
-    // case taskActions.ADD_TASK: {
-    //   return state;
-    // }
+    case taskActions.ADD_TASK: {
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
+    }
 
     case taskActions.ADD_TASK_SUCCESS: {
       // here we are update state with a updated Task we received from Effect
-      return [...state.taskList, action.payload];
+      const taskList = [...state.taskList, action.payload];
+
+      return {
+        ...state,
+        taskList,
+        loading: false,
+        loaded: true
+      };
     }
 
 

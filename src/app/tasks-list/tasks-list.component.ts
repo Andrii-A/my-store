@@ -25,20 +25,10 @@ export class TasksListComponent implements OnInit {
   constructor(
     // private tasksListService: TasksListService
     private store: Store<AppState>
-
   ) {
-
     this.tasks$ = this.store.select(state => state.tasks.taskList);
     this.loading$ = this.store.select(state => state.tasks.loading);
     this.loaded$ = this.store.select(state => state.tasks.loaded);
-
-    // const taskStore = this.store.select(state => state.tasks);
-    //
-    // taskStore.subscribe(r => {
-    //   console.log('r >>>', r);
-    //
-    // });
-
   }
 
   ngOnInit() {
