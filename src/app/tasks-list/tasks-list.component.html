@@ -1,6 +1,6 @@
 <h1>tasks</h1>
 
-<div [class.wrapper-loading]="loading$ | async">
+<div  *ngIf="loaded$ | async" [class.wrapper-loading]="loading$ | async">
 
   <ul>
 
@@ -18,7 +18,6 @@
 </div>
 
 
-<div *ngIf="loading$  | async">Loading...</div>
-<div *ngIf="loaded$  | async">Loaded!</div>
-<div *ngIf="networkError">Network Error! :-( Try again later.</div>
+<div *ngIf="loading$ | async"><br><br>Loading...</div>
 
+<div *ngIf="networkErr$ | async"><br><br>Network Error. Try Again Later.</div>

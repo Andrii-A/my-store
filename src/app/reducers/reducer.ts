@@ -4,7 +4,7 @@ import {TaskType, TasksState} from '../models/models';
 import * as _ from 'lodash';
 
 
-const initialState: TasksState =  {taskList: [], loading: false, loaded: false};
+const initialState: TasksState = {taskList: [], loading: false, loaded: false, networkErr: false};
 
 export function taskReducer(state = initialState, action: taskActions.Actions) {
   switch (action.type) {
@@ -13,7 +13,8 @@ export function taskReducer(state = initialState, action: taskActions.Actions) {
       return {
         ...state,
         loading: true,
-        loaded: false
+        loaded: false,
+        networkErr: false
       };
     }
 
@@ -24,7 +25,21 @@ export function taskReducer(state = initialState, action: taskActions.Actions) {
         ...state,
         taskList,
         loading: false,
-        loaded: true
+        loaded: true,
+        networkErr: false
+      };
+
+    }
+
+    case taskActions.LOAD_TASKS_FAIL: {
+      const taskList = action.payload;
+
+      return {
+        ...state,
+        taskList,
+        loading: false,
+        loaded: false,
+        networkErr: true
       };
 
     }
@@ -33,7 +48,8 @@ export function taskReducer(state = initialState, action: taskActions.Actions) {
       return {
         ...state,
         loading: true,
-        loaded: false
+        loaded: false,
+        networkErr: false
       };
     }
 
@@ -44,7 +60,17 @@ export function taskReducer(state = initialState, action: taskActions.Actions) {
         ...state,
         taskList,
         loading: false,
-        loaded: true
+        loaded: true,
+        networkErr: false
+      };
+    }
+
+    case taskActions.DELETE_TASK_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        networkErr: true
       };
     }
 
@@ -52,7 +78,8 @@ export function taskReducer(state = initialState, action: taskActions.Actions) {
       return {
         ...state,
         loading: true,
-        loaded: false
+        loaded: false,
+        networkErr: false
       };
     }
 
@@ -69,7 +96,17 @@ export function taskReducer(state = initialState, action: taskActions.Actions) {
         ...state,
         taskList,
         loading: false,
-        loaded: true
+        loaded: true,
+        networkErr: false
+      };
+    }
+
+    case taskActions.TOGGLE_TASK_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        networkErr: true
       };
     }
 
@@ -78,7 +115,9 @@ export function taskReducer(state = initialState, action: taskActions.Actions) {
       return {
         ...state,
         loading: true,
-        loaded: false
+        loaded: false,
+        networkErr: false
+
       };
     }
 
@@ -90,7 +129,17 @@ export function taskReducer(state = initialState, action: taskActions.Actions) {
         ...state,
         taskList,
         loading: false,
-        loaded: true
+        loaded: true,
+        networkErr: false
+      };
+    }
+
+    case taskActions.ADD_TASK_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        networkErr: true
       };
     }
 

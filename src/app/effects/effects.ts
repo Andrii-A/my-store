@@ -6,10 +6,9 @@ import {Effect, Actions} from '@ngrx/effects';
 import * as taskActions from './../actions/actions';
 
 import {switchMap, map, catchError} from 'rxjs/operators';
-import {throwError} from 'rxjs';
+import {of} from 'rxjs';
 
 import {UUID} from 'angular2-uuid';
-
 
 
 @Injectable()
@@ -29,10 +28,7 @@ export class TaskEffects {
         return this.tasksListService.loadTasks()
           .pipe(
             map(taskList => new taskActions.LoadTasksSuccessAction(taskList)),
-            catchError((error: any) => {
-              console.error('Can not load tasks!');
-              return throwError(error);
-            })
+            catchError(error => of(new taskActions.LoadTasksFailAction(error)))
           );
       })
     );
@@ -44,10 +40,7 @@ export class TaskEffects {
         return this.tasksListService.deleteTask(action.payload)
           .pipe(
             map(() => new taskActions.DeleteTaskSuccessAction(action.payload)),
-            catchError((error: any) => {
-              console.error('Can not delete the task!');
-              return throwError(error);
-            })
+            catchError(error => of(new taskActions.DeleteTaskFailAction(error)))
           );
       })
     );
@@ -64,10 +57,7 @@ export class TaskEffects {
             map(() => {
               return new taskActions.ToggleTaskSuccessAction(newPayload);
             }),
-            catchError((error: any) => {
-              console.error('Can not toggle the task!');
-              return throwError(error);
-            })
+            catchError(error => of(new taskActions.ToggleTaskFailAction(error)))
           );
       })
     );
@@ -88,10 +78,7 @@ export class TaskEffects {
             map(() => {
               return new taskActions.AddTaskSuccessAction(newPayload);
             }),
-            catchError((error: any) => {
-              console.error('Can not add the task!');
-              return throwError(error);
-            })
+            catchError(error => of(new taskActions.AddTaskFailAction(error)))
           );
       })
     );

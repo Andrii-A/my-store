@@ -9,6 +9,7 @@ export interface TasksState {
   taskList: Array<TaskType>;
   loading: boolean;
   loaded: boolean;
+  networkErr: boolean;
 }
 
 export interface AppState {
@@ -16,6 +17,7 @@ export interface AppState {
     taskList: Array<TaskType>;
     loading: boolean;
     loaded: boolean;
-  }
+    networkErr: boolean;
+  };
 }
 
