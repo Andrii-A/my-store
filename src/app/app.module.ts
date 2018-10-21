@@ -8,7 +8,8 @@ import {TasksListService} from './tasks-list/tasks-list.service';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 import {StoreModule} from '@ngrx/store';
 
-import { taskReducer } from './reducers/reducer';
+import { taskReducer } from './reducers/tasksReducer';
+import { clientsReducer } from './reducers/clientsReducer';
 import {EffectsModule} from '@ngrx/effects';
 import {TaskEffects} from './effects/effects';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
@@ -22,7 +23,8 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({tasks: taskReducer}),
+    StoreModule.forRoot({tasks: taskReducer, clients: clientsReducer}),
+    // StoreModule.forRoot({clients: clientsReducer}),
     EffectsModule.forRoot([TaskEffects]),
     StoreDevtoolsModule.instrument()
   ],
